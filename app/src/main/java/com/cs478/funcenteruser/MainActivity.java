@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
                     }
                     else {
                         if(!stopPressed){
-                            funCenterServices.playAudio(curID);
+                            funCenterServices.resumeAudio();
                             playAndPause.setImageResource(android.R.drawable.ic_media_pause);
                             isPlaying = true;
                         }
@@ -264,10 +264,12 @@ public class MainActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
+        if (mIsBound) {
         try {
             funCenterServices.stopAudio();
         } catch (RemoteException e) {
 
+        }
         }
     }
 }

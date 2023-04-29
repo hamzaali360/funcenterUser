@@ -94,16 +94,18 @@ public class MainActivity extends Activity {
                 showImage(2);
             }
         });
-
+        // play/pause button is clicked so either resume or pause the song
         playAndPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+                    // pausing the song
                     if(isPlaying) {
                         funCenterServices.pauseAudio();
                         playAndPause.setImageResource(android.R.drawable.ic_media_play);
                         isPlaying = false;
                     }
+                    // resuming the song
                     else {
                         if(!stopPressed){
                             funCenterServices.resumeAudio();
@@ -117,7 +119,7 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
+        // stopping the song from the service
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,10 +135,12 @@ public class MainActivity extends Activity {
         });
 
     }
-
+// play the song from the service
     private void playSong(int id) {
         try {
+            // bound is connected
             if(mIsBound) {
+                // song is not paused and stopped
                 if(!isPlaying && stopPressed) {
                     funCenterServices.playAudio(id);
                     isPlaying = true;
@@ -153,7 +157,7 @@ public class MainActivity extends Activity {
             Log.e(TAG, e.toString());
         }
     }
-
+// get the image from the service and display it on the phone
     private void showImage(int id) {
         try {
             if (mIsBound) {
@@ -260,7 +264,7 @@ public class MainActivity extends Activity {
     public void onResume() {
         super.onResume();
     }
-
+// when the app is closed out, it'll stop the music
     @Override
     public void onPause() {
         super.onPause();
